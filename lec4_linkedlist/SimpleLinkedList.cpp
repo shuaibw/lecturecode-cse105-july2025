@@ -134,6 +134,17 @@ Node* insertAtEnd(Node* head, int val){
     return head;
 }
 
+// Reverse the linked list recursively
+Node* reverse(Node* head){
+    if(head == nullptr || head->next == nullptr){
+        return head;
+    }
+    Node* newHead = reverse(head->next);
+    head->next->next = head;
+    head->next = nullptr;
+    return newHead;
+}
+
 int main() {
     cout << "=== Linked List Operations Testing ===" << endl << endl;
     
