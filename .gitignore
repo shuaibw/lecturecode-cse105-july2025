@@ -1,0 +1,6 @@
+# all *.out files anywhere
+**/*.out
+# all .DS_Store folders anywhere
+**/.DS_Store
+# all *.dSYM folders anywhere
+**/*.dSYM
