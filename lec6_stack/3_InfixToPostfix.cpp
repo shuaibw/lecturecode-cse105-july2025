@@ -5,6 +5,72 @@
 
 using namespace std;
 
+/*
+ * ============================================================================
+ * INFIX TO POSTFIX CONVERSION ALGORITHM (Shunting Yard)
+ * ============================================================================
+ * 
+ * RULES:
+ * 1. If OPERAND (number/letter):
+ *    → Add directly to output
+ * 
+ * 2. If OPENING PARENTHESIS '(':
+ *    → Push to stack
+ * 
+ * 3. If CLOSING PARENTHESIS ')':
+ *    → Pop operators from stack to output until '(' is found
+ *    → Remove the '(' from stack (don't add to output)
+ * 
+ * 4. If OPERATOR (+, -, *, /):
+ *    → While stack is not empty AND top is not '(' AND 
+ *      top has HIGHER OR EQUAL precedence than current operator:
+ *        • Pop operator from stack to output
+ *    → Push current operator to stack
+ * 
+ * 5. At END of expression:
+ *    → Pop all remaining operators from stack to output
+ * 
+ * PRECEDENCE:
+ *    * and / have precedence 2 (higher)
+ *    + and - have precedence 1 (lower)
+ * 
+ * ============================================================================
+ * EXAMPLE: Convert "(2+3)*4" to postfix
+ * ============================================================================
+ * 
+ * Symbol | Action                    | Stack     | Output
+ * -------|---------------------------|-----------|--------
+ * (      | Push '(' to stack         | (         | 
+ * 2      | Add operand to output     | (         | 2
+ * +      | Push '+' to stack         | ( +       | 2
+ * 3      | Add operand to output     | ( +       | 23
+ * )      | Pop until '('             |           | 23+
+ *        | ('+' popped, '(' removed) |           |
+ * *      | Push '*' to stack         | *         | 23+
+ * 4      | Add operand to output     | *         | 23+4
+ * END    | Pop remaining operators   |           | 23+4*
+ * 
+ * Result: "23+4*"
+ * 
+ * ============================================================================
+ * EXAMPLE: Convert "2+3*4" to postfix
+ * ============================================================================
+ * 
+ * Symbol | Action                    | Stack     | Output
+ * -------|---------------------------|-----------|--------
+ * 2      | Add operand to output     |           | 2
+ * +      | Push '+' to stack         | +         | 2
+ * 3      | Add operand to output     | +         | 23
+ * *      | '*' has higher precedence | + *       | 23
+ *        | than '+', so push '*'     |           |
+ * 4      | Add operand to output     | + *       | 234
+ * END    | Pop '*' then '+'          |           | 234*+
+ * 
+ * Result: "234*+"
+ * 
+ * ============================================================================
+ */
+
 // Get precedence of operators
 int precedence(char op) {
     if (op == '+' || op == '-') {
