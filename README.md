@@ -23,6 +23,34 @@ Overview of introductory lectures covering language basics, algorithm analysis, 
 - Growth and shrinking mechanics
 - Amortized time complexity
 
+### [Lecture 4: Linked Lists](./lec4_linkedlist)
+**Singly Linked List Implementation**
+- C++ and Java implementations
+- Node-based data structure
+- Dynamic memory allocation
+- Insert, delete, and traversal operations
+
+### [Lecture 5: Doubly Linked Lists](./lec5_doublylinkedlist)
+**Doubly Linked List Implementation**
+- C++ and Java implementations
+- Bidirectional traversal
+- Previous and next pointers
+- Enhanced deletion operations
+
+### [Lecture 6: Stack](./lec6_stack)
+**Stack Data Structure & Applications**
+- Array and linked list implementations
+- LIFO principle demonstration
+- Parenthesis matching, postfix evaluation, infix to postfix conversion
+- C++ and Java implementations
+
+### [Lecture 7: Queue](./lec7_queue)
+**Queue Data Structure Implementation**
+- Circular array and linked list implementations
+- FIFO principle demonstration
+- Efficient space utilization with circular arrays
+- C++ and Java implementations
+
 ## Quick Start
 
 Each lecture folder has its own README with file descriptions and instructions to run the code.
