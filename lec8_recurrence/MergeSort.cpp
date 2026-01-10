@@ -2,39 +2,45 @@
 
 using namespace std;
 
-void mergesort(int* ara, int start, int end) {
-    if (end - start <= 1) {
+void merge(int* ara, int lo, int mid, int hi) {
+    int* merged = new int[hi - lo];
+    int left = lo, right = mid, k = 0;
+    
+    // Merge the two sorted halves
+    while (left < mid && right < hi) {
+        if (ara[left] < ara[right]) {
+            merged[k++] = ara[left++];
+        } else {
+            merged[k++] = ara[right++];
+        }
+    }
+    
+    // Copy remaining elements from left half
+    while (left < mid) {
+        merged[k++] = ara[left++];
+    }
+    
+    // Copy remaining elements from right half
+    while (right < hi) {
+        merged[k++] = ara[right++];
+    }
+    
+    // Copy merged array back to original
+    for (int idx = 0; idx < hi - lo; idx++) {
+        ara[lo + idx] = merged[idx];
+    }
+    
+    delete[] merged;
+}
+
+void mergesort(int* ara, int lo, int hi) {
+    if (hi - lo <= 1) {
         return;
     }
-    int mid = start + (end - start) / 2;
-    mergesort(ara, start, mid);
-    mergesort(ara, mid, end);
-    int* merged = new int[end - start];
-    int i = start, j = mid, k = 0;
-    while (i < mid && j < end) {
-        if (ara[i] < ara[j]) {
-            merged[k] = ara[i];
-            i++;
-        } else {
-            merged[k] = ara[j];
-            j++;
-        }
-        k++;
-    }
-    while (i < mid) {
-        merged[k] = ara[i];
-        i++;
-        k++;
-    }
-    while (j < end) {
-        merged[k] = ara[j];
-        j++;
-        k++;
-    }
-    for (int idx = 0; idx < end - start; idx++) {
-        ara[start + idx] = merged[idx];
-    }
-    delete[] merged;  // Also free the memory
+    int mid = lo + (hi - lo) / 2;
+    mergesort(ara, lo, mid);
+    mergesort(ara, mid, hi);
+    merge(ara, lo, mid, hi);
 }
 
 void printArray(int* arr, int n) {
@@ -82,8 +88,8 @@ int main(int argc, char** argv) {
     if (n <= 20) {
         printArray(arr, n);
     } else {
-        cout << "First 10: ";
-        printArray(arr, 10);
+        cout << "First 100: ";
+        printArray(arr, 100);
     }
     
     if (isSorted(arr, n)) {
